@@ -81,8 +81,6 @@ void loop() {
           payloadString += (char)payloadBytes[i]; //load up the cmp string with payload less the encoding 
         }
         
-        String slotId0 = "0a5028b7-7609-4b91-b97e-3e291f386471";  //eventually this comes from slotStatus getter
-        String slotid3 = "9e144300-69e2-4e8e-8608-225377b10150";   //card #3
         if(slotId0 == payloadString)    //eventually if(slotId[i] has a match and slotStatus[i] is available 
         {
             //we have a match! replenish the products associated with that slot!            
