@@ -34,3 +34,12 @@ Next you're going to need to create a [login with amazon](https://developer.amaz
 Client ID: amzn1.application-oa2-client.c0a2100c1af289b1bf4011c71f6029b3
 Client Secret: ec48483c54c34a23a71aa8ccb2742902f7d3d00c2dd78fc5ac404eef0111e485
 ```
+
+##Create a Dash Replenishment Device
+Now it's time to create what amazon refers to as your Dash Replenishment Device. This [device creation wizard](https://developer.amazon.com/dash-replenishment/create_device.html) makes this process really simple. Essentially you're creating the infrastructure that will maintin what products you'd like to make available to your device. 
+* First step is to create the Device Name, Model ID, and upload a transparent png img (<1MB)
+* Next you'll create "Slots" for your device
+ * It seems Slots are intended to represent discrete product types although you don't need to maintain this convention. For example a coffee maker may utilize Slot 1 for replacement coffee flavors, and Slot 2 for various coffee filters. When the user authorizes the device for replenishment they will choose one product from each slot to be replenished.
+ * In each slot you can add any number of ASINs. ASINs are unique product identifiers used by Amazon to identify a product. You can find the ASIN within the product details of an item on Amazon. For example these batteries [https://www.amazon.com/gp/product/B00MNV8E0C/ref=s9_dcacsd_bhz_bw_c_x_1_w](https://www.amazon.com/gp/product/B00MNV8E0C/ref=s9_dcacsd_bhz_bw_c_x_1_w) have an ASIN of B00MNV8EOC. Another thing to keep in mind is that not all products available on Amazon are eligible for dash replenishment. Currently only items that are "Shipped and Sold by Amazon"
+* Upon completing these steps you have completed creating your device! Take note of your devices Model ID as well as the associated Slot IDs. We'll need the Model ID when we create our login with amazon link.
+
