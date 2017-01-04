@@ -97,10 +97,28 @@ with your authorization code and enter your WiFi SSID and password. Open up the 
 ```
   refresh token = "Atzr|IwEBILdfysz66E9sRHsUobHgfh1X_h-esnBfcCdYjdcCfhGRkZqXujzXSN_3a8yqj5btX1B6NgbrmEX6wax_wmJ7Sgaaa39GbR-6hjDt_tHpKsFXPGwnIhy-14CWuE4oeYDWG4pCvQ4JEMKk2DiAsuwlUtoOVwaEOif1gWErh5rswCJ8mRhaXQ7SJhZB0CWYHm_ZA_PY8xTTVTUcZFqP7iz8kBw5QGDePyOb8NvJvSuBYYkwRQTj-qrytfdcHwMWOJc5QdoyPFpmchSfsMUpMqjDmwVPBfFzb0xZWYKxdUerSeKV1VVlS4Bwl2j-4gHnjHGohUsxau4Bn9SfG9McP-7RqD9Vmk3g--rsfACQ-uVLCJSJ29sBEMNkA5sxh9E9fpTwEw166WY-xBfYa_XB9aAU3n6Fn2yFM0I7ZpPIY1fy0gkdYkFOFD0uAOdoTFDxGXwbBWE";
 ```
+Save your refresh_token in a safe place! For as long as your app is authorized to make purchases on belahf of your account this token will be valid. You'll use it to exchange for an access_token each time your app accesses the API. Be sure to edit the AmazonTokens.h file and add your refresh_token.
+
+This example sketch also checks the status of your slots by accessing the [/subscriptionInfo endpoint](https://developer.amazon.com/public/solutions/devices/dash-replenishment-service/docs/dash-getsubscriptioninfo-endpoint). You should have received a response like this...
+```
+{"slot1":true,"slot2":false}
+```
+slot1 is the slot ID which corresponds to the slots you created in your dash replenishment device.
+
+You've got everything you need now to initiate purchases from your Arduino!
+
+##amazonDashButton
+This example sketch assumes you've made it through all of the initial getting started steps and have successfully ran the authCodeGrant example sketch and have copied over your refresh_token to the AmazonTokens.h file in your Arduino>>libraries>>AmazonDRS>>src directory. Before you run this sketch you'll need to wire up a pushbutton to a DIO pin and set dashButton = to whichever pin you connect the pushbutton to. Don't forget to edit the ssid and password for the WiFi connection! 
+
+Unsure how to wire up a pushbutton? Check out [this example](https://www.arduino.cc/en/Tutorial/Button) first!
+```
+#define slotNumber 1 //This will vary for multi slot devices - dash buttons typically only serve one product/slot
+```
+slotNumber correlates to the slots you created when configuring your dash replenishment device.
  
- 
- 
- 
+Run the sketch and check for the output in the terminal, if all goes well you'll also receive an e-mail from the Amazon SNS service you created notifying you a purchase was made when you push the button! 
+
+Your custom Arduino Dash button is complete! Curious on how else you might be able to initiate purchases? Check out the [amazonDashNFC](https://github.com/andium/AmazonDRS/tree/master/examples/amazonDashNfc) example sketch to see how you can utilize NFC to initate purchases. Or check out some ideas on [hackster.io](https://www.hackster.io/contests/DRS/ideas) submissions on the Amazon DRS Developer Challenge. 
  
  
  
