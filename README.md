@@ -51,17 +51,31 @@ Phewf! At this point we have created everything we need from Amazon to get start
 
 * It's time to construct the url that will bring us to the consent request screens! Here are the details we'll need...
 
- * client_id: amzn1.application-oa2-client.c0a2100c1af289b1bf4011c71f6029b3 (from the LWA Security Profile)
- * scope: dash:replenish. (DRS always uses this scope)
- * scope_data: ```{"dash:replenish":{"device_model":"Arduino_dash","serial":"arduino123", "is_test_device":"true"}}```
-  * device_model: Arduino_dash (Model ID from the "Create Dash Replenishment Step")
-  * serial: arduino123 (Make this up! It's supposed to uniquely identify your hardware.)
- * response_type: code (Code, because we're asking for an authorization_code which we'll use to gain tokens for API access)
- * redirect_uri: https://www.getpostman.com/oauth2/callback (This would be the uri of your customer facing app, but we're skipping the whole app part so we're just going to use this from [Postman](https://www.getpostman.com/))
-
-
+ * **client_id:** amzn1.application-oa2-client.c0a2100c1af289b1bf4011c71f6029b3 (from the LWA Security Profile)
+ * **scope:** dash:replenish. (DRS always uses this scope)
+ * **scope_data:** ```{"dash:replenish":{"device_model":"Arduino_dash","serial":"arduino123", "is_test_device":"true"}}```
+  * **device_model:** Arduino_dash (Model ID from the "Create Dash Replenishment Step")
+  * **serial:** arduino123 (Make this up! It's supposed to uniquely identify your hardware.)
+ * **response_type:** code (Code, because we're asking for an authorization_code which we'll use to gain tokens for API access)
+ * **redirect_uri:** https://www.getpostman.com/oauth2/callback (This would be the uri of your customer facing app, but we're skipping the whole app part so we're just going to use this from [Postman](https://www.getpostman.com/))
  
- 
+ Before it's encoded, here's what an example request url to https://www.amazon.com/ap/oa should look like...
+```
+https://www.amazon.com/ap/oa?client_id=amzn1.application-oa2-client.c0a2100c1af289b1bf4011c71f6029b3&scope=
+dash:replenish&scope_data={"dash:replenish":{"device_model":"Arduino_dash","serial":"arduino123", "is_test_device":"true"}}&response_type=code&redirect_uri=https://www.getpostman.com/oauth2/callback
+```
+Now with URI encoded fields
+```
+https://www.amazon.com/ap/oa?client_id=amzn1.application-oa2-client.c0a2100c1af289b1bf4011c71f6029b3&scope=dash%3Areplenish&scope_data=%7B%22dash%3Areplenish%22%3A%7B%22device_model%22%3A%22Arduino_dash%22%2C%22serial%22%3A%22arduino123%22%2C%20%22is_test_device%22%3A%22true%22%7D%7Dtest&response_type=code&redirect_uri=https%3A%2F%2Fwww.getpostman.com%2Foauth2%2Fcallback
+```
+You'll notice that not all field values change when they are URI encoded, only the scope and redirect_uri actually change. When composing your request url you can use this handy [encoder/decoder](http://meyerweb.com/eric/tools/dencoder/) to quickly encode your values.
+
+If you've composed everything correctly this will bring you to an amazon log in page where you'll log in and authorize your device for replenishment! Follow the prompts and select which product you'd like to assign to each slot. On the last screen after you click to confirm your shipping and billing information and click 'complete setup' keep an eye on the url bar at the top of the browser, you should get a response back that looks simillar to this...
+
+```
+https://app.getpostman.com/oauth2/callback?code=ANdNAVhyhqirUelHGEHA&scope=dash%3Areplenish
+```
+We've got our authorization_code! Jot down the string following code= "ANdNAVhyhqirUelHGEHA". That's our authorization code that we will then use with the Arduino to gain our API access and refresh tokens! Time to move on to the Arduino!
  
  
  
