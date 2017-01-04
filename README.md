@@ -77,6 +77,43 @@ https://app.getpostman.com/oauth2/callback?code=ANdNAVhyhqirUelHGEHA&scope=dash%
 Now you've got your authorization_code! Jot down the string following code= "ANdNAVhyhqirUelHGEHA". Time to move on to the Arduino and use this authorization code to gain access and refresh tokens to access the Dash API.
  
 ## authCodeGrant
+At this point you should have all the details you need to get started working with the AmazonDRS Arduino library! Be sure to clone the repo and [import the library to your Arduino IDE](https://www.arduino.cc/en/Guide/Libraries). The AmazonDRS library also has a couple dependencies. You will need to make sure you have the [Wifi101 library](https://github.com/arduino-libraries/WiFi101) installed as well as JSON parsing library [ArduinoJson](https://github.com/bblanchon/ArduinoJson).
+
+Once you've installed the necessary libraries navigate to Arduino>>Libraries where the AmazonDRS library is stored and open the [AmazonTokens.h](https://github.com/andium/AmazonDRS/blob/master/src/AmazonTokens.h) file in your editor. Time to fill in some details...
+
+```
+#define client_id "amzn1.application-oa2-client.c0a2100c1af289b1bf4011c71f6029b3"
+
+#define client_secret "ec48483c54c34a23a71aa8ccb2742902f7d3d00c2dd78fc5ac404eef0111e485"
+
+#define redirect_uri "https%3A%2F%2Fwww.getpostman.com%2Foauth2%2Fcallback"
+```
+
+You can leave authorization_code, refresh_token and access_token fields blank for now. In the Arduino IDE navigate to File>>Examples>>AmazonDRS>>authCodeGrant to launch the sketch.  Before running the sketch be sure to edit 
+```
+#define auth_code "ANdNAVhyhqirUelHGEHA" //ex: ANdNAVhyhqirUelHGEHA
+```
+with your authorization code and enter your WiFi SSID and password. Open up the serial terminal and watch for the output. If everything goes well your refresh_token will be printed to the screen. It should look something like this...
+```
+  refresh token = "Atzr|IwEBILdfysz66E9sRHsUobHgfh1X_h-esnBfcCdYjdcCfhGRkZqXujzXSN_3a8yqj5btX1B6NgbrmEX6wax_wmJ7Sgaaa39GbR-6hjDt_tHpKsFXPGwnIhy-14CWuE4oeYDWG4pCvQ4JEMKk2DiAsuwlUtoOVwaEOif1gWErh5rswCJ8mRhaXQ7SJhZB0CWYHm_ZA_PY8xTTVTUcZFqP7iz8kBw5QGDePyOb8NvJvSuBYYkwRQTj-qrytfdcHwMWOJc5QdoyPFpmchSfsMUpMqjDmwVPBfFzb0xZWYKxdUerSeKV1VVlS4Bwl2j-4gHnjHGohUsxau4Bn9SfG9McP-7RqD9Vmk3g--rsfACQ-uVLCJSJ29sBEMNkA5sxh9E9fpTwEw166WY-xBfYa_XB9aAU3n6Fn2yFM0I7ZpPIY1fy0gkdYkFOFD0uAOdoTFDxGXwbBWE";
+```
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
  
  
  
