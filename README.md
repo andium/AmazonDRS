@@ -15,6 +15,8 @@ To start you're going to need some amazon accounts! It probably goes without say
 
 * [Create a developer account with amazon web services](https://aws.amazon.com/free/?sc_channel=PS&sc_campaign=acquisition_US&sc_publisher=google&sc_medium=cloud_computing_b&sc_content=aws_account_bmm_control_q32016&sc_detail=%2Baws%20%2Baccount&sc_category=cloud_computing&sc_segment=102882724242&sc_matchtype=b&sc_country=US&s_kwcid=AL!4422!3!102882724242!b!!g!!%2Baws%20%2Baccount&ef_id=WGw8xgAABK9kcEZO:20170104000734:s). With your AWS account activated you'll be creating an SNS [Simple Notifications Service](https://aws.amazon.com/documentation/sns/) to handle the messaging for your device. This typically includes e-mails that are sent on behalf of your device when products or replenished, or if you were to authorize/deauthrize the device.
 
+* Amazon has some great step-by-step instructions with screenshots on setting up the SNS Topic for Dash Replenishment! You can find those [here](https://developer.amazon.com/public/solutions/devices/dash-replenishment-service/docs/dash-create-an-sns-topic). Follow along and once you create the SNS topic you can pretty much forget about it. You won't touch it again during the dev process. 
+
 ##LWA Login With Amazon
 Next you're going to need to create a [login with amazon](https://developer.amazon.com/login-with-amazon) security profile. 
 
@@ -25,6 +27,10 @@ Next you're going to need to create a [login with amazon](https://developer.amaz
  * Consent Privacy Notice URL:  http://www.andium.com/thisdoesntexistyet (any url doesn't have to be valid yet)
  * Consent Logo Image: choose an img/not totally necessary, this appears as the thumbnail represeting your product in 'Your Account >> Manage Login With Amazon' where you can deauthorize your device and "un-tie" it from your amazon account.
 
-* Click save and your ready to move on! Your LWA security profile is created, time to save some important info for later.
+* Click save and you're ready to move on! Your LWA security profile is created, time to save some important info for later.
 
-* Click show Client ID and Client Secret. Save these details or keep the tab open, you're going to hard code them into your [AmazonTokens.h](https://github.com/andium/AmazonDRS/blob/master/src/AmazonTokens.h) file. More on this later when we get to setting up the Arduino.
+* Click show Client ID and Client Secret. Save these details or keep the tab open, you're going to hard code them into your [AmazonTokens.h](https://github.com/andium/AmazonDRS/blob/master/src/AmazonTokens.h) file. More on this later when we get to setting up the Arduino. They should look something like this...
+```
+Client ID: amzn1.application-oa2-client.c0a2100c1af289b1bf4011c71f6029b3
+Client Secret: ec48483c54c34a23a71aa8ccb2742902f7d3d00c2dd78fc5ac404eef0111e485
+```
