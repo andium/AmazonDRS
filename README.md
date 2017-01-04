@@ -1,4 +1,30 @@
 # amazonDRS
 An Arduino library for WiFi101 connected devices implementing the Amazon Dash Replenishment API 
 
-Getting started guide coming soon!
+# Getting Started
+This repo is intended to serve as an Arduino library aimed at getting started with Amazon's [Dash Replenishment Service](https://developer.amazon.com/dash-replenishment-service)! Amazon currently has some great [DRS documentation](https://developer.amazon.com/public/solutions/devices/dash-replenishment-service/) that I'll reference in this guide although currently offeres nothing directed towards Arduino and the DIY hacker community. This guide is meant to supplement Amazon's documentation with a focus on implementing the API on [WiFi101](https://www.arduino.cc/en/Reference/WiFi101) enabled Arduinos! This includes the [ArduinoMKR1000](https://www.arduino.cc/en/Main/ArduinoMKR1000), and Arduino sporting the [WiFi101 shield](https://store-usa.arduino.cc/products/asx00001), an [Adafruit MO WiFi Feather](https://www.adafruit.com/product/3010), or really any Arduino with sufficient space, and Atmel's [ATWINC1500 WiFi module](http://www.atmel.com/images/atmel-42376-smartconnect-winc1500-mr210pa_datasheet.pdf).  Ports to other WiFi modules and libraries are possible but this seemed to be popular module to start with!
+
+By the end of this guide you should have a functioning Dash Button similar to Amazon's [AWS IoT Button](https://aws.amazon.com/iotbutton/), with one small difference! Although the first example [amazonDashButton](https://github.com/andium/AmazonDRS/tree/master/examples/amazonDashButton) allows you to initiate purchases on amazon using a pushbutton, you now have the tools necessary to leverage the power of Arduino to initate these frictionless purchases with actuations beyond the motion of a simple button push! 
+
+This guide is not meant to be a complete implementation of the Dash API and is by no means the most effecient or cost effective way to incorporate frictionless purchasing into your product. That being said, if you're looking to prototype and hack together your own dash button or frictionless purchase proof of concept, you've come to the right place!
+
+# Initial Setup
+
+## SNS Simple Notification Service
+To start you're going to need some amazon accounts! It probably goes without saying that you'll need an amazon account to authorize your arduino to make purchaes on your behalf, but you'll also need to sign up for a free tier of AWS. 
+
+* [Create a developer account with amazon web services](https://aws.amazon.com/free/?sc_channel=PS&sc_campaign=acquisition_US&sc_publisher=google&sc_medium=cloud_computing_b&sc_content=aws_account_bmm_control_q32016&sc_detail=%2Baws%20%2Baccount&sc_category=cloud_computing&sc_segment=102882724242&sc_matchtype=b&sc_country=US&s_kwcid=AL!4422!3!102882724242!b!!g!!%2Baws%20%2Baccount&ef_id=WGw8xgAABK9kcEZO:20170104000734:s). With your AWS account activated you'll be creating an SNS [Simple Notifications Service](https://aws.amazon.com/documentation/sns/) to handle the messaging for your device. This typically includes e-mails that are sent on behalf of your device when products or replenished, or if you were to authorize/deauthrize the device.
+
+##LWA Login With Amazon
+Next you're going to need to create a [login with amazon](https://developer.amazon.com/login-with-amazon) security profile. 
+
+* [Creating the security profile](https://developer.amazon.com/lwa/sp/create-security-profile.html) will allow you to authorize your Arduino to make purchases by doing just that, 'Logging in with Amazon!' Typically device manufacturers would inlcude this step as a flow in their product registration website or application. Since we're going for a bare bones proof of concept we're going to keep this as simple as possible. Fill out the required fields...
+
+ * Security Profile Name:	Pick any name, this is the name you'll see when the login with amazon screen pops up
+ * Security Profile Description:	anything goes
+ * Consent Privacy Notice URL:  http://www.andium.com/thisdoesntexistyet (any url doesn't have to be valid yet)
+ * Consent Logo Image: choose an img/not totally necessary, this appears as the thumbnail represeting your product in 'Your Account >> Manage Login With Amazon' where you can deauthorize your device and "un-tie" it from your amazon account.
+
+* Click save and your ready to move on! Your LWA security profile is created, time to save some important info for later.
+
+* Click show Client ID and Client Secret. Save these details or keep the tab open, you're going to hard code them into your [AmazonTokens.h](https://github.com/andium/AmazonDRS/blob/master/src/AmazonTokens.h) file. More on this later when we get to setting up the Arduino.
