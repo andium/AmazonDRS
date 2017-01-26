@@ -8,7 +8,7 @@
  for registering a device and submitting replenishment requests. This
  library is tightly coupled to the WiFi101 library, which means it will
  work great with the Arduino MKR1000, Adafruit Feather MO w/ the ATWINC1500,
- Arduino WiFi101 shiled or anywhere the WiFi101 library is supported. Json
+ Arduino WiFi101 shiled or anywhere the WiFi library is supported. Json
  parsing is provided via ArduinoJson, thanks bblanchon!
  https://github.com/bblanchon/ArduinoJson
 
@@ -19,6 +19,8 @@
  You may obtain a copy of the License at
 
  http://www.apache.org/licenses/LICENSE-2.0
+
+ Andres Sabas @ Electronic Cats support more boards @ 2017
 
  Unless required by applicable law or agreed to in writing, software
  distributed under the License is distributed on an "AS IS" BASIS,
