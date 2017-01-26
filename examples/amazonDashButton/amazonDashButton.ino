@@ -27,9 +27,9 @@
  See the License for the specific language governing permissions and
  limitations under the License.
  *******************************************************************/
- #include <ESP8266WiFi.h>
- #include <WiFiClientSecure.h>
- //#include <WiFi101.h>
+#include <ESP8266WiFi.h>
+#include <WiFiClientSecure.h>
+//#include <WiFi101.h>
 #include "AmazonDRS.h"
 
 AmazonDRS DRS = AmazonDRS();
@@ -55,6 +55,7 @@ void setup() {
 
    WiFiClientSecure client;
 
+   //Start up DRS
    DRS.begin(&client);
 
   //connect to WiFi
