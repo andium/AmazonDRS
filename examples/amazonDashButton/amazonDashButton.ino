@@ -27,9 +27,14 @@
  See the License for the specific language governing permissions and
  limitations under the License.
  *******************************************************************/
+ 
+#ifdef ESP8266 
 #include <ESP8266WiFi.h>
 #include <WiFiClientSecure.h>
-//#include <WiFi101.h>
+#else
+#include <WiFi101.h>
+#endif
+
 #include "AmazonDRS.h"
 
 AmazonDRS DRS = AmazonDRS();
