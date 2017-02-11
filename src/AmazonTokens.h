@@ -38,9 +38,9 @@
 //These can be found in your DRS app's LWA details screen https://developer.amazon.com/lwa/sp/overview.html
 //------------------------------------------------------------------------------------------------------
 
-#define client_id ""
+#define client_id "amzn1.application-oa2-client.1d46c0b931e74813bda81d4e1c776b1c"
 
-#define client_secret ""
+#define client_secret "7c92ecd7d0ed46389a1c9ed2e69adbbbc2f6cf1f16e3edef4f6baf45f80c313a"
 
 //------------------------------------------------------------------------------------------------------
 
@@ -56,7 +56,8 @@
 //Refresh tokens are always valid and won't change as long as you keep your app authroized under your Amazon account
 //Log in and go to 'Your Account >> Manage Login With Amazon' to see where to deauthorize and invalidate this token
 
-static String refresh_token = "";
+static String refresh_token = "Atzr|IwEBIIKDkzgMa5g7O0R1mLZZ6YZo-Z1Ae5Ffj6amV_rPbmAI0oixxTJ8g3PN6MrOIEQpB9o_6BlDjiR6gkFRS_82Wp_0GWWvTrtYehcFJ8iKjuqf8n1ff9OrdHQU1_5nW_5Hf5loeIQ88TGazK2wy18UmOXOz1lbl9FDvWVQZl4t_6ggzDfMTVupvNr_ZtDrPm72auzoJIkGmGIM4S1RUw-Ru8X4q-UlzzYYfvRSJnPLAUTM3tTOEkv5e33SzExAaHl0tF22drRqvR1dEVlR_Zzw_IZ-1hzhIAvHrJs22K5dSEmkJKN7g8sD1tUKkn-ErMJhJrMehmvjwanF_O141Z5bVokmOLwiQKq_AYKGz8mJLWPjBNQ3TbZ1g-3Xp-LqeMcKViNImcl1-_K89K5RupwAh-OmIPP5VhBArvhdeqEnreNU7LVLNoHvvyFBQypwKQsHLe8";
+
 
 //------------------------------------------------------------------------------------------------------
 
@@ -64,7 +65,7 @@ static String refresh_token = "";
 //Upon Authorizing DRS via LWA this is passed to requestBearerAndRefreshTokens() to grab first pair of tokens
 //copy the string following code= from the LWA response ex:https://localhost/?code=ANdNAVhyhqirUelHGEHA&scope=dash:replenish
 
-static String authorization_grant_code = "";
+static String authorization_grant_code = "ANEcEEKnDNSZsbKveGOR";
 
 //------------------------------------------------------------------------------------------------------
 

@@ -12,7 +12,7 @@
  parsing is provided via ArduinoJson, thanks bblanchon!
  https://github.com/bblanchon/ArduinoJson
 
- Written by Brian Carbonette Copyright © 2016 Andium
+ Written by Brian Carbonette Copyright © 2017 Andium
 
  Licensed under the Apache License, Version 2.0 (the "License");
  you may not use this file except in compliance with the License.
@@ -20,7 +20,7 @@
 
  http://www.apache.org/licenses/LICENSE-2.0
 
- Andres Sabas @ Electronic Cats support more boards @ 2017
+ Andres Sabas @ Electronic Cats added ESP8266 support @ 2017
 
  Unless required by applicable law or agreed to in writing, software
  distributed under the License is distributed on an "AS IS" BASIS,
@@ -32,12 +32,18 @@
 #ifndef __AmazonDRS_H
 #define __AmazonDRS_H
 
+#ifdef ESP8266 
+#include <Client.h>
+#else
+#include <WiFi101.h>
+#endif 
+
 #include "Arduino.h"
 #include <ArduinoJson.h>
-#include <Client.h>
 #include "AmazonTokens.h"
 
-//#define DEBUG_DASH 1
+
+#define DEBUG_DASH 1
 
 
 
@@ -46,7 +52,14 @@ class AmazonDRS
 {
 
 	public:
+
+		#ifdef ESP8266 
 		Client * m_client;
+		void begin(Client * client);
+		#else
+	    WiFiSSLClient * m_client;
+	    void begin(WiFiSSLClient * client);
+		#endif 
 
 		//Slot Subscription Status
 		String slotsSubscriptionStatus = "";
@@ -58,7 +71,6 @@ class AmazonDRS
 
 		AmazonDRS();
 
-		void begin(Client * client);
 
     void requestNewAccessTokens();
 		void requestReplenishmentForSlot(String slotId);

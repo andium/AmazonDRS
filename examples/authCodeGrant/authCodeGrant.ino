@@ -8,13 +8,11 @@
  for registering a device and submitting replenishment requests. This
  library is tightly coupled to the WiFi101 library, which means it will
  work great with the Arduino MKR1000, Adafruit Feather MO w/ the ATWINC1500,
- Arduino WiFi101 shiled or anywhere the WiFi101 library is supported. Json
+ Arduino WiFi101 shiled or anywhere the WiFi library is supported. Json
  parsing is provided via ArduinoJson, thanks bblanchon!
  https://github.com/bblanchon/ArduinoJson
 
- Written by Brian Carbonette Copyright © 2016 Andium
-
- Andres Sabas @ Electronic Cats support more boards @ 2017
+ Written by Brian Carbonette Copyright © 2017 Andium
 
  Licensed under the Apache License, Version 2.0 (the "License");
  you may not use this file except in compliance with the License.
@@ -22,15 +20,22 @@
 
  http://www.apache.org/licenses/LICENSE-2.0
 
+ Andres Sabas @ Electronic Cats added ESP8266 support @ 2017
+
  Unless required by applicable law or agreed to in writing, software
  distributed under the License is distributed on an "AS IS" BASIS,
  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  See the License for the specific language governing permissions and
  limitations under the License.
  *******************************************************************/
+
+#ifdef ESP8266 
 #include <ESP8266WiFi.h>
 #include <WiFiClientSecure.h>
-//#include <WiFi101.h>
+#else
+#include <WiFi101.h>
+#endif
+
 #include "AmazonDRS.h"
 
 AmazonDRS DRS = AmazonDRS();
@@ -53,7 +58,11 @@ void setup() {
       ; // wait for serial port to connect. Needed for native USB port only
    }
 
+  #ifdef ESP8266 
    WiFiClientSecure client;
+   #else
+   WiFiSSLClient client;
+   #endif
 
   //Start up DRS
   DRS.begin(&client);
