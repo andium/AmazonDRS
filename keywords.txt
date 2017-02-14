@@ -35,3 +35,11 @@ getUidString	KEYWORD2
 getTagType	KEYWORD2
 hasNdefMessage	KEYWORD2
 getNdefMessage	KEYWORD2
+requestNewAccessTokens KEYWORD2
+requestReplenishmentForSlot KEYWORD2
+requestBearerAndRefreshTokens KEYWORD2
+retrieveSubscriptionInfo KEYWORD2
+getRefreshToken KEYWORD2
+getSlotStatus KEYWORD2
+getSlotId KEYWORD2
+setAuthCode KEYWORD2
