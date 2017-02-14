@@ -19,7 +19,7 @@
 
  http://www.apache.org/licenses/LICENSE-2.0
 
- Andres Sabas @ Electronic Cats support more boards @ 2017
+ Andres Sabas @ Electronic Cats added ESP8266 support @ 2017
 
  Unless required by applicable law or agreed to in writing, software
  distributed under the License is distributed on an "AS IS" BASIS,
@@ -58,8 +58,11 @@ void setup() {
   pinMode(dashButton, INPUT);
 
 
+   #ifdef ESP8266 
    WiFiClientSecure client;
-
+   #else
+   WiFiSSLClient client;
+   #endif
    //Start up DRS
    DRS.begin(&client);
 

@@ -58,7 +58,7 @@ void setup() {
       ; // wait for serial port to connect. Needed for native USB port only
    }
 
-  #ifdef ESP8266 
+   #ifdef ESP8266 
    WiFiClientSecure client;
    #else
    WiFiSSLClient client;

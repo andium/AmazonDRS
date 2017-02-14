@@ -64,7 +64,7 @@ void AmazonDRS::requestNewAccessTokens()
 
     if (m_client->connect(server, 443))
     {
-      m_client->println("POST /auth/o2/token HTTP/1->1");
+      m_client->println("POST /auth/o2/token HTTP/1.1");
       m_client->println("Host: api.amazon.com");
       m_client->println("Cache-Control: no-cache");
       m_client->println("Content-Type: application/x-www-form-urlencoded");
