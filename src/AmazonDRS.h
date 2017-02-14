@@ -42,14 +42,10 @@
 #include <ArduinoJson.h>
 #include "AmazonTokens.h"
 
-
 //#define DEBUG_DASH 
 
-
-
-
 class AmazonDRS
-{
+{ 
 
 	public:
 
@@ -57,22 +53,21 @@ class AmazonDRS
 		Client * m_client;
 		void begin(Client * client);
 		#else
-	    WiFiSSLClient * m_client;
-	    void begin(WiFiSSLClient * client);
+	        WiFiSSLClient * m_client;
+	    	void begin(WiFiSSLClient * client);
 		#endif 
 
 		//Slot Subscription Status
 		String slotsSubscriptionStatus = "";
 
 		//Slot Id Array and Statuses---
-	  String slotId[10] = {};
+	  	String slotId[10] = {};
 		String slotStatus[10] = {};
-	  int numSlots = 0;
+	  	int numSlots = 0;
 
 		AmazonDRS();
 
-
-    void requestNewAccessTokens();
+   		void requestNewAccessTokens();
 		void requestReplenishmentForSlot(String slotId);
 		void requestBearerAndRefreshTokens();
 
@@ -80,9 +75,9 @@ class AmazonDRS
 
 		String getRefreshToken();
 		String getSlotStatus(int slotNumber);
-	  String getSlotId(int slotNumber);
+	  	String getSlotId(int slotNumber);
 
-	  void setAuthCode(String authCode);
+	  	void setAuthCode(String authCode);
 
 
 	private:
@@ -93,10 +88,8 @@ class AmazonDRS
 		String assembleRefreshTokenBody(String refreshToken, String clientId, String clientSecret, String redirectUri);
 		String assembleAuthCodeBody(String authCode, String clientId, String clientSecret, String redirectUri);
 		void parseSlotIds(String subscriptionStatus);
-
-	  void processSubscriptionInfoResponse();
+	  	void processSubscriptionInfoResponse();
 		void processRefreshTokenResponse();
-
 
 
 };
