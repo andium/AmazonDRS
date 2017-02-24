@@ -173,6 +173,25 @@ void AmazonDRS::requestBearerAndRefreshTokens()
       m_client->println();
     }
 
+    while (m_client->available())
+     {
+      char c = m_client->read();
+
+     // #ifdef DEBUG_DASH
+      Serial.write(c);
+     // #endif
+
+        if(c == '{')
+        {
+          _jsonBody = true;
+        }
+
+        if(_jsonBody)
+        {
+          _responseBody += c;
+        }
+     }
+
     delay(1000);
     processRefreshTokenResponse();
 
@@ -295,9 +314,9 @@ void AmazonDRS::processRefreshTokenResponse()
      {
       char c = m_client->read();
 
-      #ifdef DEBUG_DASH
+     // #ifdef DEBUG_DASH
       Serial.write(c);
-      #endif
+     // #endif
 
         if(c == '{')
         {
@@ -316,7 +335,7 @@ void AmazonDRS::processRefreshTokenResponse()
       JsonObject& root = jsonBuffer.parseObject(_responseBody);
        if (!root.success())
        {
-        Serial.println("refresh token response parse  failed");
+        Serial.println("refresh token response parse failed");
         return;
        }
        String newAccessToken = root["access_token"];

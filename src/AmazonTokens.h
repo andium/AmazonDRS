@@ -38,9 +38,9 @@
 //These can be found in your DRS app's LWA details screen https://developer.amazon.com/lwa/sp/overview.html
 //------------------------------------------------------------------------------------------------------
 
-#define client_id "amzn1.application-oa2-client.1d46c0b931e74813bda81d4e1c876b1c"
+#define client_id "amzn1.application-oa2-client.02d6a3b6f7ad45589b344e71ab040cff"
 
-#define client_secret "7c92ecd9d0ed46389a1c4ed2e69adbbbc2f6cf1f11e3edef4f6bcf45e80c313a"
+#define client_secret "c0daf124d15f7717de644109b7ef77769c68ed0155cf33156b926cd8c8b78541"
 
 //------------------------------------------------------------------------------------------------------
 

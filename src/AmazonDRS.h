@@ -42,7 +42,7 @@
 #include <ArduinoJson.h>
 #include "AmazonTokens.h"
 
-//#define DEBUG_DASH 
+#define DEBUG_DASH 
 
 class AmazonDRS
 { 

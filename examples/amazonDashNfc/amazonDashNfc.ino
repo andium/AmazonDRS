@@ -44,7 +44,7 @@ AnduinoNFC NFC = AnduinoNFC();
 
 
 //WiFi creds ----------------------------------------------------------------------------------
-char ssid[] = ""; //  your network SSID (name)
+char ssid[] = "";    // your network SSID (name)
 char pass[] = "";    // your network password (use for WPA, or use as key for WEP)
 //------------------------------------------------------------------------------------------------------
 
@@ -61,9 +61,6 @@ void setup() {
    #else
    WiFiSSLClient client;
    #endif
-
-  //Setup NFC
-  NFC.begin();
 
   //Start up DRS
   DRS.begin(&client);
@@ -84,6 +81,9 @@ void setup() {
   //initialize slots
   DRS.retrieveSubscriptionInfo();  //check slot statuses
 
+  
+  //Setup NFC
+  NFC.begin();
 
 }
 
@@ -95,7 +95,7 @@ void loop() {
 
    if (NFC.packetReady())
     {
-
+        Serial.println("Packet Ready!");
         NfcTag tag = NFC.read();  //attempt to read the RFID tag
         tag.print();              //and print the results to the terminal
         NdefMessage message = tag.getNdefMessage();
@@ -111,10 +111,14 @@ void loop() {
           payloadString += (char)payloadBytes[i]; //load up the cmp string with payload less the encoding
         }
 
-        if(slotId0 == payloadString)    //eventually if(slotId[i] has a match and slotStatus[i] is available
+        if(true)    //eventually if(slotId[i] has a match and slotStatus[i] is available
         {
             //we have a match! replenish the products associated with that slot!
             DRS.requestReplenishmentForSlot(payloadString);
+
+            //Switch back to PN532 friendly SPI settings
+            SPI.setBitOrder(LSBFIRST);
+            SPI.setClockDivider(16); 
         }
         else
         {
@@ -123,7 +127,7 @@ void loop() {
           Serial.println(" is not available at this time");
         }
 
-
+     
     }
 
 
