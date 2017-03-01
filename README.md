@@ -7,6 +7,8 @@ By the end of this guide you should have a functioning Dash Button similar to Am
 
 This guide is not meant to be a complete implementation of the Dash API and is by no means the most effecient or cost effective way to incorporate frictionless purchasing into your product. That being said, if you're looking to prototype and hack together your own dash button or frictionless purchase proof of concept, you've come to the right place!
 
+Before we dive right in it couldn't hurt to run a quick test that will save you some headache later. If you're using the WiFi101 library and the ATWINC1500 you may need to load the SSL certificates for Amazon's DRS API endpoints. You can check this by running the example [WiFiSSLClient](https://github.com/arduino-libraries/WiFi101/blob/master/examples/WiFiSSLClient/WiFiSSLClient.ino) sketch and attempt to connect (just try a "GET /") to https://api.amazon.com or https://dash-replenishment-service-na.amazon.com. If you can't connect you'll have to run the firmware updater and manually load these certificiates before moving forward. Here's a [great guide](https://www.arduino.cc/en/Tutorial/FirmwareUpdater) on Arduino's site on how to do this, just scroll down to 'Certificate Loading'.
+
 # Initial Setup
 
 ## SNS Simple Notification Service
@@ -25,6 +27,8 @@ Next you're going to need to create a [login with amazon](https://developer.amaz
  * **Security Profile Description:**	anything goes
  * **Consent Privacy Notice URL:**  http://www.andium.com/thisdoesntexistyet (any url doesn't have to be valid yet)
  * **Consent Logo Image:** choose an img/not totally necessary, this appears as the thumbnail represeting your product in 'Your Account >> Manage Login With Amazon' where you can deauthorize your device and "un-tie" it from your amazon account.
+ 
+* When creating your security profile don't forget to add your redirect_uri to the "Allowed Return URL" section (ex: https://www.getpostman.com/oauth2/callback). This field can be found under 'Web Settings', this will make more sense in the 'consent request' section.
 
 * Click save and you're ready to move on! Your LWA security profile is created, time to save some important info for later.
 
