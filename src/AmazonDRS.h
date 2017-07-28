@@ -68,7 +68,7 @@ class AmazonDRS
 		AmazonDRS();
 
    		void requestNewAccessTokens();
-		void requestReplenishmentForSlot(String slotId);
+		String requestReplenishmentForSlot(String slotId);
 		void requestBearerAndRefreshTokens();
 
 		void retrieveSubscriptionInfo();

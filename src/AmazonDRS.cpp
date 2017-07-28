@@ -30,7 +30,7 @@
  *******************************************************************/
 
 #include "AmazonDRS.h"
-
+#define DEBUG_DASH 
 
 
 AmazonDRS::AmazonDRS()
@@ -77,13 +77,19 @@ void AmazonDRS::requestNewAccessTokens()
       m_client->println();
     }
 
-    delay(1000);
+    while(!m_client->available())
+    {
+      ;
+    }
+
     processRefreshTokenResponse();
 
 }
 
-void AmazonDRS::requestReplenishmentForSlot(String slotId)
+String AmazonDRS::requestReplenishmentForSlot(String slotId)
 {
+    String response;
+
     Serial.print("Requesting Replenishment for slotId ");
     Serial.println(slotId);
     char server[] = "dash-replenishment-service-na.amazon.com";    //api endpoint uri
@@ -106,14 +112,21 @@ void AmazonDRS::requestReplenishmentForSlot(String slotId)
       m_client->println("Connection: close");
       m_client->println();
     }
-    delay(1000);
-
-     while (m_client->available()) {
+    
+    while(!m_client->available())
+    {
+      ;
+    }
+    
+    while (m_client->available()) {
     char c = m_client->read();
     Serial.write(c);
+    response += c;
     }
 
     m_client->stop();
+
+    return response;
 
 }
 
@@ -143,7 +156,12 @@ void AmazonDRS::retrieveSubscriptionInfo()
       m_client->println("Connection: close");
       m_client->println();
     }
-    delay(1000);
+
+    while(!m_client->available())
+    {
+      ;
+    }
+
     processSubscriptionInfoResponse();
 
 
@@ -173,26 +191,11 @@ void AmazonDRS::requestBearerAndRefreshTokens()
       m_client->println();
     }
 
-    while (m_client->available())
-     {
-      char c = m_client->read();
+    while(!m_client->available())
+    {
+      Serial.print(".");
+    }
 
-     // #ifdef DEBUG_DASH
-      Serial.write(c);
-     // #endif
-
-        if(c == '{')
-        {
-          _jsonBody = true;
-        }
-
-        if(_jsonBody)
-        {
-          _responseBody += c;
-        }
-     }
-
-    delay(1000);
     processRefreshTokenResponse();
 
 }
@@ -246,9 +249,8 @@ void AmazonDRS::processSubscriptionInfoResponse()
      {
       char c = m_client->read();
 
-      #ifdef DEBUG_DASH
+      
       Serial.write(c);
-      #endif
 
         if(c == '{') //catch the beginning of the json
         {
@@ -310,11 +312,11 @@ void AmazonDRS::parseSlotIds(String subscriptionStatus)
 
 void AmazonDRS::processRefreshTokenResponse()
 {
+  Serial.println("processing Refresh token response");
      while (m_client->available())
      {
       char c = m_client->read();
-
-     // #ifdef DEBUG_DASH
+      //#ifdef DEBUG_DASH
       Serial.write(c);
      // #endif
 
@@ -329,19 +331,21 @@ void AmazonDRS::processRefreshTokenResponse()
         }
      }
 
-
+     delay(1000);
       //Parse the json resposne constaining access and refresh tokens
       StaticJsonBuffer<1100> jsonBuffer;
       JsonObject& root = jsonBuffer.parseObject(_responseBody);
        if (!root.success())
        {
-        Serial.println("refresh token response parse failed");
+        Serial.println("refresh token response parse failed!");
         return;
        }
        String newAccessToken = root["access_token"];
        String newRefreshToken = root["refresh_token"]; //refresh token does not change unless LWA is deauthorized
        access_token = newAccessToken;
        refresh_token = newRefreshToken;
+
+
        //clear response body for next process
        _responseBody = "";
        _jsonBody = false;

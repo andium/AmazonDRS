@@ -46,7 +46,7 @@
 
 //Redirect URI------------------------------------------------------------------------------------------
 
-#define redirect_uri "https%3A%2F%2Fwww.getpostman.com%2Foauth2%2Fcallback" //must be URI encoded and https
+#define redirect_uri "https://www.getpostman.com/oauth2/callback" //must be https
                      //^^you could use this one from Postman if you'd like if you have an app or site replace 
 					 //this wth your sites uri encoded callback
 //------------------------------------------------------------------------------------------------------
